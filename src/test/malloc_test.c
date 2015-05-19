@@ -13,5 +13,7 @@ void malloc_test(){
 	printf("start malloc test");
 	int* a = (int*)_malloc(sizeof(int) * 4);
 
+	free(a);
+
 	printf(" <<<success\n");
 }
