@@ -4,16 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/malloc/_malloc.c \
-../src/malloc/free.c 
+../src/malloc/_malloc.c 
 
 OBJS += \
-./src/malloc/_malloc.o \
-./src/malloc/free.o 
+./src/malloc/_malloc.o 
 
 C_DEPS += \
-./src/malloc/_malloc.d \
-./src/malloc/free.d 
+./src/malloc/_malloc.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

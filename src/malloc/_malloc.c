@@ -30,6 +30,14 @@ void* allocate_block(void * ptr, size_t size){
 	return ptr + sizeof(header);
 }
 
+void* pre_block(void *ptr){
+	void* start = HEAP_START;
+	if(ptr == start)
+		return NULL;
+
+	return ptr - BLOCK_SIZE(ptr);
+}
+
 void mem_initialize(){
 	void* ptr = HEAP_START;
 	void* end = HEAP_END;
@@ -55,7 +63,13 @@ void* _malloc(size_t size){
 	} while(NEXT_BLOCK(cur) >= end);
 
 	/* TODO:파편화 확인 및 재배열 코드 추가 */
-
-	return 0;
+	return NULL;
 }
 
+void _free(void * ptr){
+	set_unused(ptr);
+	void* pre_ptr = pre_block(ptr);
+	if(pre_ptr != NULL && !IS_USED(pre_ptr)){
+		set_block_size(pre_ptr, BLOCK_SIZE(ptr) + BLOCK_SIZE(pre_ptr));
+	}
+}

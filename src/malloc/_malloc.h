@@ -24,5 +24,7 @@ typedef struct Header {
 
 void* _malloc(size_t size);
 
+void _free(void *p);
+
 #endif /* TEST1_H_ */
 
