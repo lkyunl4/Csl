@@ -62,14 +62,22 @@ void* _malloc(size_t size){
 
 	} while(NEXT_BLOCK(cur) >= end);
 
-	/* TODO:파편화 확인 및 재배열 코드 추가 */
+	/* TODO:단편화 확인 및 재배열 코드 추가 */
+	/* 또는 가상메모리 사용할지 고민 중 */
+
 	return NULL;
 }
 
 void _free(void * ptr){
 	set_unused(ptr);
+	void *next_ptr = NEXT_BLOCK(ptr);
+	if( next_ptr!= NULL && !IS_USED(next_ptr)){
+		set_block_size(ptr, BLOCK_SIZE(ptr) + BLOCK_SIZE(next_ptr));
+	}
+
 	void* pre_ptr = pre_block(ptr);
 	if(pre_ptr != NULL && !IS_USED(pre_ptr)){
 		set_block_size(pre_ptr, BLOCK_SIZE(ptr) + BLOCK_SIZE(pre_ptr));
 	}
+
 }
